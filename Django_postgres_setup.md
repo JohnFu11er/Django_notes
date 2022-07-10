@@ -132,3 +132,11 @@ django-admin startproject <project_name>
   ```
   python3 manage.py migrate
   ```
+
+
+### Make a django admin super user
+- Run the command:
+  ```
+  python manage.py createsuperuser
+  ```
+  > Database migration must be completed prior to this step or the `createsuperuser` command will fail
