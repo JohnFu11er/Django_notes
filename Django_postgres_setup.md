@@ -58,6 +58,21 @@ django-admin startproject <project_name>
 
 
 ### Edit the `models.py` file
+- Create a `class` for your new model and inherit models.Model:
+  ```python
+  class Listings(models.Model):
+      class Meta:
+          verbose_name = "Listings"
+          verbose_name_plural = "Listings"
+  
+      name = models.CharField(max_length=50)
+      category = models.CharField(choices=CATEGORY, max_length=6)
+  
+      def __str__(self):
+          return self.name
+  ```
+  > Class variables will indicate fields in the database model (`name` and `category` in this case)
+
 - Example:
   ```python
   from django.db import models
@@ -80,6 +95,27 @@ django-admin startproject <project_name>
   ```
 
 
-
 ### Register your model in the `admin.py` file
-- 
+- Import admin from django.contrib:
+  ```python
+    from django.contrib import admin
+  ```
+
+- Import your model class ("Listings" in this example) from the `models.py` file in the same directory that you created above:
+  ```python
+  from .models import Listings
+  ```
+
+- Register your model class ("Listings" in this example) with the admin site:
+  ```python
+  admin.site.register(Listings)
+  ```
+
+- Example:
+  ```python
+  from django.contrib import admin
+  
+  from .models import Listings
+  
+  admin.site.register(Listings)
+  ```
