@@ -35,10 +35,10 @@ django-admin startproject <project_name>
   ```python
   DATABASES = {
       'default': {
-          'ENGINE': 'django.db.backends.postgresql',
-          'NAME': 'test',
-          'HOST': '127.0.0.1',
-          'PORT': '5432',
+          'ENGINE': 'django.db.backends.postgresql',  # <------ Modified with: .postgresql
+          'NAME': 'test',  # <------ Name of your postgresql database
+          'HOST': '127.0.0.1',  # <------ Loopback address used if database is hosted on local server 
+          'PORT': '5432',  # <------ Port for talking to database
       }
   }
   ```
@@ -93,6 +93,7 @@ django-admin startproject <project_name>
       def __str__(self):
           return self.name
   ```
+  > Fields can also have a default value set in the format: `default=""`
 
 
 ### Register your model in the `admin.py` file
@@ -118,4 +119,16 @@ django-admin startproject <project_name>
   from .models import Listings
   
   admin.site.register(Listings)
+  ```
+
+
+### Commit your changes to the database
+- Navigate to the directory holding your application.
+- Run the `makemigrations` command:
+  ```
+  python3 manage.py makemigrations
+  ```
+- Run the `migrate` command:
+  ```
+  python3 manage.py migrate
   ```
