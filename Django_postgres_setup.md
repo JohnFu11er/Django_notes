@@ -12,7 +12,10 @@ django-admin startproject <project_name>
 
 ### Variations on running the development server
 - Open the `<project_name>/<project_name>/settings` file and add an IP address of a computer that is allowed to access the server.
-- Add the IP to the list of `ALLOWED_HOSTS`
+- Add to the list of `ALLOWED_HOSTS`:
+  - IP addresses (The hosting server's address)
+  - URL's (The hosting server's URL)
+
 - Run the server and allow access from any address on a specified port:
   - Example:
     ```
@@ -20,4 +23,63 @@ django-admin startproject <project_name>
     ```
 
 
+### Install Postgresql
+- Install postgresql
+- Start the postgresql server
+- Create a postgresql database
 
+
+### Configuring the Django `settings.py` file
+- Go to the django project's `settings.py` file
+- Edit the `DATABASES` entries (for example):
+  ```python
+  DATABASES = {
+      'default': {
+          'ENGINE': 'django.db.backends.postgresql',
+          'NAME': 'test',
+          'HOST': '127.0.0.1',
+          'PORT': '5432',
+      }
+  }
+  ```
+- Add your application to the `INSTALLED_APPS` section:
+  ```python
+  INSTALLED_APPS = [
+      'django.contrib.admin',
+      'django.contrib.auth',
+      'django.contrib.contenttypes',
+      'django.contrib.sessions',
+      'django.contrib.messages',
+      'django.contrib.staticfiles',
+      'polls.apps.PollsConfig',  # <------ Line added for my app named polls
+  ]
+  ```
+  > In this example the `PollsConfig` function is in the `apps.py` program in the `polls` directory
+
+
+### Edit the `models.py` file
+- Example:
+  ```python
+  from django.db import models
+  
+  CATEGORY = (
+      ('DRAMA', 'Drama'),
+      ('ACTION', 'Action')
+  )
+  
+  class Listings(models.Model):
+      class Meta:
+          verbose_name = "Listings"
+          verbose_name_plural = "Listings"
+  
+      name = models.CharField(max_length=50)
+      category = models.CharField(choices=CATEGORY, max_length=6)
+  
+      def __str__(self):
+          return self.name
+  ```
+
+
+
+### Register your model in the `admin.py` file
+- 
